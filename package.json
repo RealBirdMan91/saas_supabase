@@ -10,18 +10,25 @@
     "push": "drizzle-kit push:pg",
     "pull": "drizzle-kit introspect",
     "generate": "drizzle-kit generate",
-     "migrate": "drizzle-kit migrate",
+    "migrate": "drizzle-kit migrate",
     "drop": "drizzle-kit drop",
     "check": "drizzle-kit check",
     "up": "drizzle-kit up:pg"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.1",
+    "lucide-react": "^0.390.0",
     "next": "14.2.3",
+    "next-themes": "^0.3.0",
     "postgres": "^3.4.4",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
