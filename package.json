@@ -8,11 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "push": "drizzle-kit push:pg",
-    "pull": "drizzle-kit introspect:pg ",
+    "pull": "drizzle-kit introspect",
     "generate": "drizzle-kit generate",
      "migrate": "drizzle-kit migrate",
     "drop": "drizzle-kit drop",
-    "check": "drizzle-kit check:pg",
+    "check": "drizzle-kit check",
     "up": "drizzle-kit up:pg"
   },
   "dependencies": {
