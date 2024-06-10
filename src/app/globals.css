@@ -54,17 +54,8 @@ body {
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 .animate-slide {
-  animation: 10s slide linear infinite;
+  animation: 15s slide linear infinite;
 }
 
 @keyframes slide {
