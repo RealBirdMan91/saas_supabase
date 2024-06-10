@@ -39,7 +39,7 @@ export function LoginForm() {
         message: message,
       });
     }
-    router.push("/dashboard");
+    router.replace("/dashboard");
   }
 
   return (
