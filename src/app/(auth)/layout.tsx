@@ -6,9 +6,9 @@ function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="h-screen p-6 flex justify-center items-center">
+    <main className="h-screen p-6 flex justify-center items-center">
       {children}
-    </div>
+    </main>
   );
 }
 

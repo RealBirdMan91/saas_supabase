@@ -12,7 +12,7 @@ export async function loginAction(
 
   const { error } = await supabase.auth.signInWithPassword(data);
   if (error) {
-    return { type: "error", error: null, message: error.message };
+    return { type: "error", message: error.message };
   }
 
   return {

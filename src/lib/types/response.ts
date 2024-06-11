@@ -1,7 +1,6 @@
-export type ErrorType<E = object> = {
+export type ErrorType = {
   type: "error";
   message?: string;
-  error: E | null;
 };
 
 export type SuccessType<T = object> = {
@@ -10,6 +9,4 @@ export type SuccessType<T = object> = {
   data: T | null;
 };
 
-export type ActionResponseType<T = object, E = object> =
-  | SuccessType<T>
-  | ErrorType<E>;
+export type ActionResponseType<T = object> = SuccessType<T> | ErrorType;

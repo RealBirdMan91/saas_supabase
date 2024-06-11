@@ -1,3 +1,4 @@
+import Header from "@/components/landing-page/header";
 import React from "react";
 
 function Layout({
@@ -5,7 +6,12 @@ function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return (
+    <>
+      <Header />
+      <main>{children}</main>
+    </>
+  );
 }
 
 export default Layout;
