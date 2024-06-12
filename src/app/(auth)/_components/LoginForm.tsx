@@ -39,6 +39,7 @@ export function LoginForm() {
         message: message,
       });
     }
+    console.log("User logged in successfully");
     router.replace("/dashboard");
   }
 

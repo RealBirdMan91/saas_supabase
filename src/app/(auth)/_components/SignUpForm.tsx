@@ -12,17 +12,15 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SignUpType, signUpSchema } from "@/lib/types/auth-types";
 import Link from "next/link";
-import { loginAction, signUpAction } from "@/lib/actions/auth-actions";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MailCheck } from "lucide-react";
+import { signUpAction } from "@/lib/actions/auth-actions";
 
 export function SignUpForm() {
   const [confirmation, setConfirmation] = useState(false);
@@ -45,7 +43,6 @@ export function SignUpForm() {
     }
     form.reset();
     setConfirmation(true);
-    //router.replace("/dashboard");
   }
 
   return (
