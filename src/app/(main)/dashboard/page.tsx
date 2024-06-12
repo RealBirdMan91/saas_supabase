@@ -11,8 +11,8 @@ async function DashboardPage() {
   }
 
   const workspace = await db.query.workspaces.findFirst({
-    where: (workspace, { eq }) =>
-      eq(workspace.workspaceOwner, data.session.user.id),
+    where: (workspaces, { eq }) =>
+      eq(workspaces.workspaceOwner, data.session.user.id),
   });
   console.log(workspace);
 
