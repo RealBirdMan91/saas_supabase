@@ -2,6 +2,7 @@ import db from "@/lib/supabase/db";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import React from "react";
+import DashboardSetup from "./_components/DashboardSetup";
 
 async function DashboardPage() {
   const supabase = createClient();
@@ -14,7 +15,15 @@ async function DashboardPage() {
     where: (workspaces, { eq }) =>
       eq(workspaces.workspaceOwner, data.session.user.id),
   });
-  console.log(workspace);
+
+  if (!workspace) {
+    if (!workspace)
+      return (
+        <div className="bg-background h-screen w-screen flex justify-center items-center">
+          <DashboardSetup user={data.session.user} />
+        </div>
+      );
+  }
 
   return <div>DashboardPage</div>;
 }
