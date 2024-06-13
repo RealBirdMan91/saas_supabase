@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/providers/theme-provider";
 import { cn } from "@/lib/utils";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={cn(inter.className, "bg-background")}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <div>{children}</div>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

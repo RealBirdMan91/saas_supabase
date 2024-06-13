@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -6,15 +8,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import type { AuthUser } from "@supabase/supabase-js";
 import React from "react";
+import { SetupForm } from "./SetupForm";
 
 type Props = {
   user: AuthUser;
-  subscription: {} | null;
 };
 
-function DashboardSetup({ user, subscription }: Props) {
+function DashboardSetup({ user }: Props) {
   return (
     <Card className="w-[800px] h-screen sm:h-auto">
       <CardHeader>
@@ -25,7 +28,7 @@ function DashboardSetup({ user, subscription }: Props) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <p>Card Content</p>
+        <SetupForm />
       </CardContent>
       <CardFooter>
         <p>Card Footer</p>
