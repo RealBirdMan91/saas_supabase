@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import Dropzone from "react-dropzone";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,13 +12,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 import { z } from "zod";
 import FileUploader from "@/components/FileUploader";
+import { useEffect } from "react";
 
 const setupFormSchema = z.object({
   title: z.string().min(3).max(255),
-  image: z.instanceof(File),
+  image: z.array(z.instanceof(File)),
 });
 
 type SetupFormType = z.infer<typeof setupFormSchema>;
@@ -29,12 +28,14 @@ export function SetupForm() {
     resolver: zodResolver(setupFormSchema),
     defaultValues: {
       title: "",
+      image: [],
     },
   });
 
   async function onSubmit(data: SetupFormType) {
     console.log("submitData", data);
   }
+  //console.log(form.watch("image"));
 
   return (
     <Form {...form}>
@@ -64,6 +65,8 @@ export function SetupForm() {
                 <FileUploader
                   value={field.value}
                   onValueChange={field.onChange}
+                  maxSize={1024 * 1024 * 0.5}
+                  maxFiles={4}
                 />
               </FormControl>
               <FormMessage />

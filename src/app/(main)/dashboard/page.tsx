@@ -7,20 +7,21 @@ import DashboardSetup from "./_components/DashboardSetup";
 async function DashboardPage() {
   const supabase = createClient();
   const { data } = await supabase.auth.getSession();
-  if (!data.session) {
+  const { data: userData } = await supabase.auth.getUser();
+  if (!data.session || !userData.user) {
     redirect("/login");
   }
 
   const workspace = await db.query.workspaces.findFirst({
     where: (workspaces, { eq }) =>
-      eq(workspaces.workspaceOwner, data.session.user.id),
+      eq(workspaces.workspaceOwner, userData.user.id),
   });
 
   if (!workspace) {
     if (!workspace)
       return (
         <div className="bg-background h-screen w-screen flex justify-center items-center">
-          <DashboardSetup user={data.session.user} />
+          <DashboardSetup user={userData.user} />
         </div>
       );
   }
