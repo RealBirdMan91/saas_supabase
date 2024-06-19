@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { Button } from "./ui/button";
 
-interface Props extends DropzoneOptions {
+interface Props extends Omit<DropzoneOptions, "multiple"> {
   value: File[];
   onValueChange: (...event: any[]) => void;
   className?: string;
@@ -19,10 +19,10 @@ function FileUploader({
   className,
   ...dropzoneProps
 }: Props) {
-  const { multiple, maxSize = 1024 * 1024 * 2, maxFiles = 1 } = dropzoneProps;
+  const { maxSize = 1024 * 1024 * 2, maxFiles = 1 } = dropzoneProps;
 
   const onDrop = (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
-    if (!multiple && maxFiles === 1 && acceptedFiles.length > 1) {
+    if (maxFiles === 1 && acceptedFiles.length > 1) {
       toast.error("Cannot upload more than 1 file at a time");
       return;
     }
@@ -103,6 +103,18 @@ function FileUploader({
                 className
               )}
             >
+              {/*  {maxFiles === 1 && isFileWithPreview(files[0]) && (
+                <div className=" absolute w-full h-full cursor-pointer rounded-lg ">
+                  <Image
+                    src={files[0].preview}
+                    alt={files[0].name}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-lg "
+                  />
+                </div>
+              )}
+ */}
               <input {...getInputProps()} />
               {isDragActive ? (
                 <div className="flex flex-col items-center justify-center gap-4 sm:px-5">
@@ -209,7 +221,7 @@ function FileCard({ file, onRemove }: FileCardProps) {
 }
 
 function isFileWithPreview(file: File): file is File & { preview: string } {
-  return "preview" in file && typeof file.preview === "string";
+  return file && "preview" in file && typeof file.preview === "string";
 }
 
 export default FileUploader;

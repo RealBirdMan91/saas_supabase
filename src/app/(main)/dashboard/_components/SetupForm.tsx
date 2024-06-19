@@ -14,7 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import FileUploader from "@/components/FileUploader";
-import { useEffect } from "react";
 
 const setupFormSchema = z.object({
   title: z.string().min(3).max(255),
@@ -35,7 +34,6 @@ export function SetupForm() {
   async function onSubmit(data: SetupFormType) {
     console.log("submitData", data);
   }
-  //console.log(form.watch("image"));
 
   return (
     <Form {...form}>
@@ -66,7 +64,7 @@ export function SetupForm() {
                   value={field.value}
                   onValueChange={field.onChange}
                   maxSize={1024 * 1024 * 0.5}
-                  maxFiles={3}
+                  maxFiles={1}
                 />
               </FormControl>
               <FormMessage />
