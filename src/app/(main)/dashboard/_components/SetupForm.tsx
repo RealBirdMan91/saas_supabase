@@ -18,7 +18,7 @@ import { useEffect } from "react";
 
 const setupFormSchema = z.object({
   title: z.string().min(3).max(255),
-  image: z.array(z.instanceof(File)),
+  image: z.array(z.instanceof(File)).min(1, "At least one file is required"),
 });
 
 type SetupFormType = z.infer<typeof setupFormSchema>;
@@ -66,7 +66,7 @@ export function SetupForm() {
                   value={field.value}
                   onValueChange={field.onChange}
                   maxSize={1024 * 1024 * 0.5}
-                  maxFiles={4}
+                  maxFiles={3}
                 />
               </FormControl>
               <FormMessage />
