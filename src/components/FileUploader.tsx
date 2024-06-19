@@ -65,7 +65,11 @@ function FileUploader({
     onValueChange(updatedFiles);
   };
 
-  function onRemove(index: number) {}
+  function onRemove(index: number) {
+    if (!files) return;
+    const newFiles = files.filter((_, i) => i !== index);
+    onValueChange(newFiles);
+  }
 
   // Revoke preview url when component unmounts
   React.useEffect(() => {
