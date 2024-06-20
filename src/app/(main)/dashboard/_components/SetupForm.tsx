@@ -9,30 +9,36 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { z } from "zod";
 import FileUploader from "@/components/FileUploader";
-
-const setupFormSchema = z.object({
-  title: z.string().min(3).max(255),
-  image: z.array(z.instanceof(File)).min(1, "At least one file is required"),
-});
-
-type SetupFormType = z.infer<typeof setupFormSchema>;
+import EmojiPicker from "@/components/EmojiPicker";
+import {
+  WorkspaceFormType,
+  workspaceFormSchema,
+} from "@/lib/types/workspace-types";
+import { createWorkspaceAction } from "@/lib/actions/workspace-actions";
 
 export function SetupForm() {
-  const form = useForm<SetupFormType>({
-    resolver: zodResolver(setupFormSchema),
+  const form = useForm<WorkspaceFormType>({
+    resolver: zodResolver(workspaceFormSchema),
     defaultValues: {
-      title: "",
-      image: [],
+      workspaceName: "",
+      logo: [],
+      emoji: "",
     },
   });
 
-  async function onSubmit(data: SetupFormType) {
-    console.log("submitData", data);
+  async function onSubmit(data: WorkspaceFormType) {
+    var formData = new FormData();
+
+    for (const key of Object.keys(data) as (keyof WorkspaceFormType)[]) {
+      formData.append(key, data[key] as string);
+    }
+
+    const response = await createWorkspaceAction(formData);
   }
 
   return (
@@ -43,9 +49,27 @@ export function SetupForm() {
       >
         <FormField
           control={form.control}
-          name="title"
+          name="emoji"
           render={({ field }) => (
             <FormItem>
+              <FormLabel>Select Workspace emoji</FormLabel>
+              <FormControl>
+                <EmojiPicker
+                  value={field.value}
+                  onValueChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="workspaceName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Workspace Title</FormLabel>
               <FormControl>
                 <Input type="text" placeholder="Workspace title" {...field} />
               </FormControl>
@@ -56,15 +80,17 @@ export function SetupForm() {
 
         <FormField
           control={form.control}
-          name="image"
+          name="logo"
           render={({ field }) => (
             <FormItem>
+              <FormLabel>Logo Upload</FormLabel>
               <FormControl>
                 <FileUploader
                   value={field.value}
                   onValueChange={field.onChange}
                   maxSize={1024 * 1024 * 0.5}
                   maxFiles={1}
+                  accept={{ "image/*": [] }}
                 />
               </FormControl>
               <FormMessage />

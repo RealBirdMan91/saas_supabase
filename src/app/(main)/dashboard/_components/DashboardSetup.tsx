@@ -13,11 +13,7 @@ import type { AuthUser } from "@supabase/supabase-js";
 import React from "react";
 import { SetupForm } from "./SetupForm";
 
-type Props = {
-  user: AuthUser;
-};
-
-function DashboardSetup({ user }: Props) {
+function DashboardSetup() {
   return (
     <Card className="w-[800px] h-screen sm:h-auto">
       <CardHeader>
@@ -30,9 +26,6 @@ function DashboardSetup({ user }: Props) {
       <CardContent>
         <SetupForm />
       </CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
-      </CardFooter>
     </Card>
   );
 }

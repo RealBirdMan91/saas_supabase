@@ -1,10 +1,8 @@
 "use server";
 
-import { AuthTokenResponsePassword } from "@supabase/supabase-js";
 import { createClient } from "../supabase/server";
 import { LoginType, SignUpType } from "../types/auth-types";
 import { ActionResponseType } from "../types/response";
-import { redirect } from "next/dist/server/api-utils";
 
 export async function loginAction(
   data: LoginType
