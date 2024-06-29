@@ -19,9 +19,13 @@ import {
   WorkspaceFormType,
   workspaceFormSchema,
 } from "@/lib/types/workspace-types";
-import { createWorkspaceAction } from "@/lib/actions/workspace-actions";
+import { useServerAction } from "zsa-react";
+import { createWorkspace } from "@/lib/actions/workspace-actions";
 
 export function SetupForm() {
+  const { isPending, isSuccess, data, execute, error, isError } =
+    useServerAction(createWorkspace);
+
   const form = useForm<WorkspaceFormType>({
     resolver: zodResolver(workspaceFormSchema),
     defaultValues: {
@@ -33,12 +37,13 @@ export function SetupForm() {
 
   async function onSubmit(data: WorkspaceFormType) {
     var formData = new FormData();
-
-    for (const key of Object.keys(data) as (keyof WorkspaceFormType)[]) {
-      formData.append(key, data[key] as string);
+    formData.append("workspaceName", data.workspaceName);
+    formData.append("emoji", data.emoji);
+    for (const file of data.logo) {
+      formData.append("logo", file);
     }
-
-    const response = await createWorkspaceAction(formData);
+    const [response, error] = await execute(formData);
+    console.log({ response, error });
   }
 
   return (
