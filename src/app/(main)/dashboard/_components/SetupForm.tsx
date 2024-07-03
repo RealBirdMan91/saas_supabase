@@ -20,11 +20,12 @@ import {
   workspaceFormSchema,
 } from "@/lib/types/workspace-types";
 import { useServerAction } from "zsa-react";
-import { createWorkspace } from "@/lib/actions/workspace-actions";
+import { createWorkspaceAction } from "@/lib/actions/workspace-actions";
+import { toast } from "sonner";
 
 export function SetupForm() {
   const { isPending, isSuccess, data, execute, error, isError } =
-    useServerAction(createWorkspace);
+    useServerAction(createWorkspaceAction);
 
   const form = useForm<WorkspaceFormType>({
     resolver: zodResolver(workspaceFormSchema),
@@ -43,7 +44,11 @@ export function SetupForm() {
       formData.append("logo", file);
     }
     const [response, error] = await execute(formData);
-    console.log({ response, error });
+    if (error) {
+      return toast.error("Failed to create workspace, please try again.");
+    }
+    toast.success("Workspace created successfully");
+    console.log(response);
   }
 
   return (

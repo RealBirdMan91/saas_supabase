@@ -10,6 +10,8 @@ import {
 } from "drizzle-orm/pg-core";
 import { prices, subscription_status, users } from "../../../migrations/schema";
 
+export type NewWorkspace = typeof workspaces.$inferInsert;
+
 export const workspaces = pgTable("workspaces", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
   created_at: timestamp("created_at", {
@@ -19,8 +21,8 @@ export const workspaces = pgTable("workspaces", {
     .notNull()
     .defaultNow(),
   workspaceOwner: uuid("workspace_owner").notNull(),
-  title: text("title").notNull(),
-  iconId: text("icon_id").notNull(),
+  workspaceName: text("workspace_name").notNull(),
+  emoji: text("icon_id").notNull(),
   data: text("data"),
   inTrash: text("in_trash"),
   logo: text("logo"),

@@ -12,9 +12,14 @@ export const workspaceFormSchema = z.object({
 
 export const workspaceSchema = workspaceFormSchema.extend({
   id: z.string(),
-  logo: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  data: z.string().nullable(),
+  workspaceName: z.string(),
+  logo: z.string().nullable(),
+  emoji: z.string(),
+  created_at: z.string(),
+  workspaceOwner: z.string(),
+  inTrash: z.string().nullable(),
+  bannerUrl: z.string().nullable(),
 });
 
 export type WorkspaceFormType = z.infer<typeof workspaceFormSchema>;

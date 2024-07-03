@@ -1,0 +1,1 @@
+ALTER TABLE "workspaces" RENAME COLUMN "title" TO "workspace_name";
